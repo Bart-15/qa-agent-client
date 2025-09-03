@@ -10,7 +10,7 @@ export interface ChatProps {
   onSendMessage: (message: string) => void;
 }
 
-type ChatEntry = {
+export type ChatEntry = {
   role: 'user' | 'assistant';
   content: string;
   timestamp: number;

@@ -1,8 +1,6 @@
 import { Send } from 'lucide-react';
 import { useState } from 'react';
 
-import { useChatToAgentMutation } from '../../hooks/useChatToAgentMutation';
-
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
 }
@@ -10,11 +8,9 @@ interface ChatInputProps {
 export const ChatInput = ({ onSendMessage }: ChatInputProps) => {
   const [message, setMessage] = useState('');
 
-  const chatMutation = useChatToAgentMutation();
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    chatMutation.mutateAsync({ message });
+
     if (message.trim()) {
       onSendMessage(message.trim());
       setMessage('');
