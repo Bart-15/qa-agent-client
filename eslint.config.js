@@ -35,6 +35,7 @@ export default tseslint.config(
       'import/prefer-default-export': 0,
       'import/no-extraneous-dependencies': 0, //Disable the rule
       'import/no-unresolved': 0,
+      'max-lines-per-function': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
