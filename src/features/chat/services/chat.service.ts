@@ -10,10 +10,11 @@ export async function askQuestion(question: string): Promise<ChatResponse> {
 
   const { data } = await axiosInstance.post<ChatResponse>('/ask', {
     question,
-    documentKey: documentKey,
-    sessionId: sessionId,
-    userId: 'bart-tabusao',
+    documentKey: 'BartTabusao_CV.pdf',
+    sessionId: sessionId ? sessionId : '',
+    userId: 'user',
   });
+
   return data;
 }
 
@@ -21,7 +22,7 @@ export async function getChatHistory(): Promise<SessionData> {
   const sessionId = localStorage.getItem('sessionId');
 
   const { data } = await axiosInstance.get<SessionData>(
-    `session?userId=bart-tabusao&sessionId=${sessionId}`,
+    `session?userId=user&sessionId=${sessionId}`,
   );
 
   return data;
