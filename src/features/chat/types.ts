@@ -5,7 +5,6 @@ export interface ChatMessage {
 }
 
 export interface ChatProps {
-  chatHistory: ChatMessage[];
   isLoading?: boolean;
   onSendMessage: (message: string) => void;
 }

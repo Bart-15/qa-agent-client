@@ -1,47 +1,27 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import { ChatContainer } from './components/chat-container';
-import { ChatMessage } from './types';
+import { useGetChatHistory } from './hooks/useGetChatHistory';
+import { useChatStore } from './store/useChat.store';
 
 const Chat = () => {
-  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
-    {
-      role: 'assistant',
-      content: 'Hello! How can I help you today?',
-      timestamp: Date.now(),
-    },
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
+  const chatStore = useChatStore((state) => state);
+  const { data: chats } = useGetChatHistory();
 
-  const handleSendMessage = async (message: string) => {
-    // Add user message
-    const userMessage: ChatMessage = {
-      role: 'user',
-      content: message,
-      timestamp: Date.now(),
-    };
-    setChatHistory((prev) => [...prev, userMessage]);
+  useEffect(() => {
+    if (chats?.chatHistory) {
+      // Initialize chat session first if not exists
+      if (!chatStore.chat) {
+        chatStore.startChat(chats.sessionId);
+      }
+      chatStore.setChatHistory(chats.chatHistory);
+    }
+  }, [chats]);
 
-    // Simulate AI response
-    setIsLoading(true);
-    setTimeout(() => {
-      const assistantMessage: ChatMessage = {
-        role: 'assistant',
-        content: 'This is a simulated response to: ' + message,
-        timestamp: Date.now(),
-      };
-      setChatHistory((prev) => [...prev, assistantMessage]);
-      setIsLoading(false);
-    }, 1000);
-  };
+  const handleSendMessage = async (message: string) => {};
 
-  return (
-    <ChatContainer
-      chatHistory={chatHistory}
-      isLoading={isLoading}
-      onSendMessage={handleSendMessage}
-    />
-  );
+  console.log(chatStore.chat?.chatHistory);
+  return <ChatContainer isLoading={false} onSendMessage={handleSendMessage} />;
 };
 
 export default Chat;

@@ -34,6 +34,15 @@ export const ChatContainer = ({ isLoading }: ChatProps) => {
       content: response.answer,
       timestamp: Date.now(),
     });
+
+    //Set session id to local storage and documentKey
+    const sessionId = localStorage.getItem('sessionId');
+
+    if (!sessionId) {
+      localStorage.setItem('sessionId', response.sessionId);
+    }
+
+    localStorage.setItem('documentKey', 'BartTabusao_CV.pdf');
   }
 
   return (
