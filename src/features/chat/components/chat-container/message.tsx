@@ -16,7 +16,9 @@ export const Message = ({ message }: MessageProps) => {
             : 'message-assistant bg-gray-100'
         }`}
       >
-        <p className="message-content text-sm">{message.content}</p>
+        <p className="message-content text-justify text-sm">
+          {message.content}
+        </p>
         <span className="message-time mt-1 text-xs text-gray-500">
           {new Date(message.timestamp).toLocaleTimeString()}
         </span>
