@@ -1,3 +1,3 @@
 export const keys = {
-  sample: 'sample',
+  chaSession: 'chat-session',
 };
